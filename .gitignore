@@ -1,0 +1,29 @@
+# Ignore l'environnement virtuel
+.venv/
+venv/
+
+# Ignore les fichiers compilés Python
+__pycache__/
+*.py[cod]
+*.cpython-*
+
+# Ignore les fichiers de log et fichiers temporaires
+*.log
+*.txt~
+*.swp
+
+# Ignore les documents spécifiques aux tests et données personnelles
+RAG_module/Documents/*
+user_personal_documents/
+
+# Ignore les fichiers PDF et autres formats qui ne sont pas du code
+*.pdf
+
+# Ignore les fichiers générés par des outils ou le navigateur web
+web_module/html_page_source.txt
+web_module/cleaned_content.txt
+web_module/store_LLM_interaction.txt
+
+# Fichiers système
+.DS_Store
+Thumbs.db

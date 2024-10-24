@@ -12,12 +12,9 @@ __pycache__/
 *.txt~
 *.swp
 
-# Ignore les documents spécifiques aux tests et données personnelles
-RAG_module/Documents/*
-user_personal_documents/
-
 # Ignore les fichiers PDF et autres formats qui ne sont pas du code
 *.pdf
+*.txt
 
 # Ignore les fichiers générés par des outils ou le navigateur web
 web_module/html_page_source.txt

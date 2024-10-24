@@ -19,7 +19,7 @@ from RAG_module.Process_documents.process_document import process_and_store_docu
 
 visited_urls = set()
 
-def scrape_arborescence_website(url, max_depth=2, current_depth=0, starting_netloc=None):
+def scrape_arborescence_website(url, max_depth=1, current_depth=0, starting_netloc=None):
     if current_depth > max_depth:
         return
 
@@ -88,7 +88,7 @@ def scrape_arborescence_website(url, max_depth=2, current_depth=0, starting_netl
 def scrape_with_selenium(website):
     print(f"Launching Firefox browser for {website}...")
 
-    firefox_driver_path = "geckodriver"  # Specify the path to GeckoDriver here
+    firefox_driver_path = "/snap/bin/geckodriver"  # Specify the path to GeckoDriver here
     options = webdriver.FirefoxOptions()
     options.headless = True  # Run the browser in headless mode
 

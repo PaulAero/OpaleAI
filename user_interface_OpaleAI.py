@@ -6,7 +6,7 @@ import time
 
 from RAG_module.Retrieve_generation.RAG_pipeline import rag_pipeline
 from RAG_module.Process_documents.vectorization_and_storage import check_collection, delete_collection, project_root
-from RAG_module.Process_documents.process_document import process_and_store_documents
+from RAG_module.Process_documents.process_document import process_and_store_documents, get_path
 
 from web_module.arborescence_scraper import scrape_arborescence_website
 from web_module.manage_scraping import scan_web_list, add_website
@@ -34,8 +34,12 @@ if st.button("Envoyer"):
 st.header("Manage collection")
 # Bouton pour supprimer la collection et traiter les fichiers du répertoire Documents
 if st.button("Delete all the collection and process from Documents directory"):
-    delete_collection()
+    delete_collection() # On supprime la collection
+    st.write("Collection complètement supprimée.")
+
     directory = "/home/pi-project-admin/PycharmProjects/OpaleAI/RAG_module/Documents"
+    st.write(f"Traitement des fichiers du dossier {directory} en cours...")
+
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
         if os.path.isfile(file_path):
@@ -65,7 +69,7 @@ with st.sidebar:
 
 # --- Bloc 2 ---
 
-st.header("Ajouter un site à scraper puis ajouter à la base de données")
+st.header("Ajouter un site à scraper et mettre à jour la base de données")
 
 # Champ de saisie pour l'URL du site à scraper
 url_to_scrape = st.text_input("Entrez l'URL du site à scraper :", "")
@@ -77,6 +81,15 @@ depth = st.number_input("Profondeur de l'arborescence :", min_value=0, max_value
 if st.button("Scraper le site"):
     # Vérifier que l'URL n'est pas vide
     if url_to_scrape:
+
+        # on enregistre l'url dans notre list
+        file_path = get_path("web_module/")
+        with open(file_path / "website_list.csv", "a") as web_list:
+            web_list.write(url_to_scrape)
+            web_list.write(',')
+            web_list.write(depth)
+            web_list.write(',\n') # à améliorer pour gére les doublons dans la liste
+
         scrape_arborescence_website(url_to_scrape, max_depth=depth)
         st.success(f"Le site {url_to_scrape} a été ajouté à la base de données avec une profondeur de {depth}.")
     else:
@@ -91,7 +104,7 @@ uploaded_file = st.file_uploader("Choisissez un fichier", type=["pdf", "txt"])
 # Bouton pour enregistrer le fichier
 if st.button("Enregistrer le fichier"):
     if uploaded_file is not None:
-        save_directory = os.path.join(project_root, "/user_personnal_documents")
+        save_directory = os.path.join(project_root, "/RAG_module/Documents")
 
         # Définir le chemin complet du fichier
         file_path = os.path.join(save_directory, uploaded_file.name)
@@ -101,10 +114,12 @@ if st.button("Enregistrer le fichier"):
         with open(file_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
 
+        process_and_store_documents(save_directory, uploaded_file.name)
+
         st.success(f"Le fichier {uploaded_file.name} a été enregistré avec succès dans {save_directory}.")
     else:
         st.error("Veuillez sélectionner un fichier à télécharger.")
 
 
-if __name__ == "__main__":
-    os.system("streamlit run user_interface_OpaleAI.py")
+# pour lancer le programme
+# streamlit run user_interface_OpaleAI.py

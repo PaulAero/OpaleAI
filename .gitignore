@@ -14,9 +14,12 @@ __pycache__/
 
 # Ignore les fichiers PDF et autres formats qui ne sont pas du code
 *.pdf
-*.txtRAG
-RAGRAGGeqfFEFfezf   zef zefzerfq^lm$
+*.txt
+*.bin
+*.xml
 
+# Ignore la BDD de vecteurs CHromaDB
+RAG_module/.chromadb/
 
 # Ignore les fichiers générés par des outils ou le navigateur web
 web_module/html_page_source.txt

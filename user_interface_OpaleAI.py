@@ -116,7 +116,7 @@ if st.button("Enregistrer le fichier"):
 
         process_and_store_documents(save_directory, uploaded_file.name)
 
-        st.success(f"Le fichier {uploaded_file.name} a été enregistré avec succès dans {save_directory}.")
+        st.success(f"Le fichier {uploaded_file.name} a été enregistré avec succès dans {save_directory}. Ajout à la BDD réussi")
     else:
         st.error("Veuillez sélectionner un fichier à télécharger.")
 

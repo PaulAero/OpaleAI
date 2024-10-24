@@ -1,10 +1,16 @@
+# arborescence_scraper.py
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import time
+import logging
+
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
+
 from web_module.parse_for_RAG import parse_for_RAG_with_ollama
+
 import tldextract
 import os
 import re
@@ -128,5 +134,5 @@ def get_site_name(url):
 
 if __name__ == "__main__":
     # Start the recursive scraping
-    starting_url = "https://gestionnaires.actifforum.com/f26-ople"
-    scrape_arborescence_website(starting_url, max_depth=2)
+    starting_url = "https://example.com/"
+    scrape_arborescence_website(starting_url, max_depth=1)

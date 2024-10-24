@@ -1,7 +1,7 @@
 import csv
 import os
 import subprocess
-from web_module.arborescence_scrapper import scrape_arborescence_website
+from web_module.arborescence_scraper import scrape_arborescence_website
 
 
 def scan_web_list(file_path, test_mode=False):

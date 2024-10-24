@@ -1,18 +1,21 @@
-# interface_opaleai.py
+# user_interface_OpaleAI.py
 
 import streamlit as st
 import os
 import time
 
 from RAG_module.Retrieve_generation.RAG_pipeline import rag_pipeline
-from RAG_module.Process_documents.vectorization_and_storage import check_collection, delete_collection
+from RAG_module.Process_documents.vectorization_and_storage import check_collection, delete_collection, project_root
 from RAG_module.Process_documents.process_document import process_and_store_documents
 
-from web_module.arborescence_scrapper import scrape_arborescence_website
+from web_module.arborescence_scraper import scrape_arborescence_website
 from web_module.manage_scraping import scan_web_list, add_website
 
 # Titre de l'application
 st.title("OpaleAI")
+
+project_root = os.path.abspath(os.path.dirname(__file__))
+print(f"Project root: {project_root}")
 
 # --- Bloc 1 ---
 
@@ -48,7 +51,7 @@ if st.button("Delete all the collection and process from Documents directory"):
 
 # Bouton pour lancer le scraping de la liste de sites web
 if st.button("Process arborescence scraping of the website list"):
-    file_path = os.path.join("web_module", "website_list.csv")
+    file_path = os.path.join(project_root, "web_module/website_list.csv")
     scan_web_list(file_path)
     st.success("Le scraping de la liste de sites web a été effectué.")
 
@@ -68,7 +71,7 @@ st.header("Ajouter un site à scraper puis ajouter à la base de données")
 url_to_scrape = st.text_input("Entrez l'URL du site à scraper :", "")
 
 # Champ pour spécifier la profondeur de l'arborescence
-depth = st.number_input("Profondeur de l'arborescence :", min_value=1, max_value=10, value=2)
+depth = st.number_input("Profondeur de l'arborescence :", min_value=0, max_value=10, value=1)
 
 # Bouton pour lancer le scraping
 if st.button("Scraper le site"):
@@ -83,17 +86,12 @@ if st.button("Scraper le site"):
 st.header("Ajouter un document à la collection")
 
 # Permettre à l'utilisateur de télécharger un fichier
-uploaded_file = st.file_uploader("Choisissez un fichier", type=["pdf", "txt", "docx"])
+uploaded_file = st.file_uploader("Choisissez un fichier", type=["pdf", "txt"])
 
 # Bouton pour enregistrer le fichier
 if st.button("Enregistrer le fichier"):
     if uploaded_file is not None:
-        # Chemin du dossier où enregistrer les fichiers (à définir dans le backend)
-        save_directory = "user_personal_documents"
-
-        # Vérifier que le dossier existe, sinon le créer
-        if not os.path.exists(save_directory):
-            os.makedirs(save_directory)
+        save_directory = os.path.join(project_root, "/user_personnal_documents")
 
         # Définir le chemin complet du fichier
         file_path = os.path.join(save_directory, uploaded_file.name)
@@ -106,3 +104,7 @@ if st.button("Enregistrer le fichier"):
         st.success(f"Le fichier {uploaded_file.name} a été enregistré avec succès dans {save_directory}.")
     else:
         st.error("Veuillez sélectionner un fichier à télécharger.")
+
+
+if __name__ == "__main__":
+    os.system("streamlit run user_interface_OpaleAI.py")

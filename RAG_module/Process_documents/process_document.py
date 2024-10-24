@@ -48,6 +48,9 @@ def process_and_store_documents(directory, filename, url="", show_indexation=Fal
     # Récupération de la date au format iso YYYY-MM-DDTHH:MM:SS.ssssss
     current_time = datetime.utcnow().isoformat()
 
+    # Suppréssion des données s'il s'agit de la modification d'un doc
+    delete_in_collection(filter_field="file", filter=file, collection_name=collection_name)
+
     # Créer des métadonnées pour chaque segment
     print("Création des métadonnées pour chaque segment...")
     for i, segment in enumerate(segments):

@@ -14,7 +14,9 @@ __pycache__/
 
 # Ignore les fichiers PDF et autres formats qui ne sont pas du code
 *.pdf
-*.txt
+*.txtRAG
+RAGRAGGeqfFEFfezf   zef zefzerfq^lm$
+
 
 # Ignore les fichiers générés par des outils ou le navigateur web
 web_module/html_page_source.txt

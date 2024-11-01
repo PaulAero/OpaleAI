@@ -2,7 +2,7 @@
 
 The goal is to build a basic chatbot to assist French users of the Op\@le software. This is a discovery project for me regarding RAG architecture, and I am not a professional developer. The project should operate with minimal cost and be locally viable. Therefore, Ollama is preferred for its ease of use and scalability (it is easy to change the model used).
 
-Contact: Paulaero on Discord if you want. The GitHub repository link will be available soon.
+Contact: Paulaero on Discord if you want. The GitHub repository need an update, this is not the last version (sorry).
 
 # Current Project Architecture
 
